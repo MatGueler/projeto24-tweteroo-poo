@@ -16,11 +16,11 @@ export default class TweetsService {
     return tweetsDoUsuario;
   }
 
-  //   async CreateTweet(tweet, username) {
-  //     if (!username || !tweet) {
-  //       return res.status(400).send("Todos os campos são obrigatórios!");
-  //     }
-  //     const { avatar } = usuarios.find((user) => user.username === username);
-  //     tweets.push({ username, tweet, avatar });
-  //   }
+  async CreateTweet(tweet, username) {
+    if (!username || !tweet) {
+      return res.status(400).send("Todos os campos são obrigatórios!");
+    }
+    const { avatar } = usuarios.find((user) => user.username === username);
+    tweets.push({ username, tweet, avatar });
+  }
 }
