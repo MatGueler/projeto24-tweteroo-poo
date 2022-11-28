@@ -5,7 +5,7 @@ export default class TweetsService {
 
   async CreateTweet(tweet, username) {
     if (!username || !tweet) {
-      return res.status(400).send("Todos os campos são obrigatórios!");
+      throw new Error("Todos os campos são obrigatórios!", { statusCode: 400 });
     }
     const { avatar } = usuarios.find((user) => user.username === username);
     tweets.push({ username, tweet, avatar });
@@ -16,11 +16,20 @@ export default class TweetsService {
     return tweetsDoUsuario;
   }
 
-  async CreateTweet(tweet, username) {
-    if (!username || !tweet) {
-      return res.status(400).send("Todos os campos são obrigatórios!");
+  async GetTweets(page) {
+    if (page && page < 1) {
+      throw new Error("Informe uma página válida!", { statusCode: 400 });
     }
-    const { avatar } = usuarios.find((user) => user.username === username);
-    tweets.push({ username, tweet, avatar });
+    const limite = 10;
+    const start = (page - 1) * limite;
+    const end = page * limite;
+    if (tweets.length <= 10) {
+      return this.reverseTweets();
+    }
+    return [...tweets].reverse().slice(start, end);
+  }
+
+  reverseTweets() {
+    return [...tweets].reverse();
   }
 }

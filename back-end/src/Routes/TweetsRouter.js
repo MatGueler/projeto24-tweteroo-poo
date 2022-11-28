@@ -5,9 +5,9 @@ const tweetRouter = Router();
 
 tweetRouter
   .post("/tweets", (req, res) => new TweetsController().CreateTweet(req, res))
+  .get("/tweets", (req, res) => new TweetsController().GetTweets(req, res))
   .get("/tweets/:username", (req, res) =>
     new TweetsController().GetUserTweet(req, res)
-  )
-  .get("/tweets", (req, res) => new UsersController().SignUp(req, res));
+  );
 
 export default tweetRouter;
